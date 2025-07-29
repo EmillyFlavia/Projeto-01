@@ -1,29 +1,15 @@
-import { FastifyInstance } from "fastify";
-import { InMemoryCategoryRepository } from '../repositories/in-memory/in-memory-category-repository.ts';
-import { randomUUID } from "node:crypto";
+import { FastifyInstance } from 'fastify';
+
+import { createCategoryController } from '../controllers/category/create-category-controller.js';
+import { getAllCategoriesController } from '../controllers/category/get-all-categories-controller.js';
+import { getCategoryByIdController } from '../controllers/category/get-category-by-id-controller.js';
+import { updateCategoryController } from '../controllers/category/update-category-controller.js';
+import { deleteCategoryController } from '../controllers/category/delete-category-controller.js';
 
 export async function categoryRoutes(app: FastifyInstance) {
-  const categoryRepository = new InMemoryCategoryRepository();
-
-  app.post('/categories', async (request, reply) => {
-    const { name } = request.body as { name: string };
-    const category = { id: randomUUID(), name };
-    await categoryRepository.create(category);
-    return reply.status(201).send(category);
-  });
-
-  app.get('/categories', async () => {
-    return categoryRepository.findAll();
-  });
-
-  app.get('/categories/:id', async (request) => {
-    const { id } = request.params as { id: string };
-    return categoryRepository.findById(id);
-  });
-
-  app.delete('/categories/:id', async (request, reply) => {
-    const { id } = request.params as { id: string };
-    await categoryRepository.delete(id);
-    return reply.status(204).send();
-  });
+  app.post('/categories', createCategoryController);
+  app.get('/categories', getAllCategoriesController);
+  app.get('/categories/:id', getCategoryByIdController);
+  app.put('/categories/:id', updateCategoryController);
+  app.delete('/categories/:id', deleteCategoryController);
 }
