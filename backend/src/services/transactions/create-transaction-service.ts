@@ -9,20 +9,20 @@ type CreateTransactionInput = {
   amount: number;
   bank: Bank;
   category: Category;
-  date: Date;
 };
 
 export class CreateTransactionService {
   constructor(private readonly repo: TransactionRepository) {}
 
   async execute(input: CreateTransactionInput): Promise<Transaction> {
+
+    console.log(input)
     const transaction = new Transaction(
       input.description,
       input.type,
       input.amount,
       input.bank,
       input.category,
-      input.date
     );
 
     return this.repo.create(transaction);
