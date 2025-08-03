@@ -11,14 +11,12 @@ export async function createTransactionController(req: FastifyRequest, res: Fast
     type,
     categoryId,
     bankId,
-    date
   } = req.body as {
     description: string;
     amount: number;
     type: 'income' | 'expense';
     categoryId: string;
     bankId: string;
-    date: string;
   };
 
   const categoryRepo = new PrismaCategoryRepository();
@@ -39,8 +37,7 @@ export async function createTransactionController(req: FastifyRequest, res: Fast
     type,
     amount,
     category,
-    bank,
-    date: new Date(date)
+    bank
   });
 
   return res.status(201).send(transaction);

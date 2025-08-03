@@ -45,7 +45,7 @@ export class PrismaBankRepository implements BankRepository {
   async findAll(): Promise<Bank[]> {
     const items = await prisma.bank.findMany();
 
-    return items.map((entry) =>
+    return items.map((entry: Bank) =>
       new Bank(
         entry.ispb,
         entry.name,

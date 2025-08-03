@@ -10,7 +10,6 @@ export class Transaction extends EntityBase {
   public amount: number;
   public bank: Bank;
   public category: Category;
-  public date: Date;
 
   constructor(
     description: string,
@@ -18,7 +17,6 @@ export class Transaction extends EntityBase {
     amount: number,
     bank: Bank,
     category: Category,
-    date: Date,
     id?: string,
     createdAt?: Date,
     updatedAt?: Date | null
@@ -29,6 +27,5 @@ export class Transaction extends EntityBase {
     this.amount = amount;
     this.bank = bank;
     this.category = category;
-    this.date = date;
   }
 }

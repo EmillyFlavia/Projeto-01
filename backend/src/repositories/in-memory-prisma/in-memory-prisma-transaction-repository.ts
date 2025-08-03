@@ -6,15 +6,13 @@ import { prisma } from '../../database/prisma.js';
 
 export class PrismaTransactionRepository implements TransactionRepository {
   async create(transaction: Transaction): Promise<Transaction> {
+    console.log(transaction)
     const record = await prisma.transaction.create({
       data: {
         id: transaction.id,
         description: transaction.description,
         type: transaction.type,
         amount: transaction.amount,
-        date: transaction.date,
-        createdAt: transaction.createdAt,
-        updatedAt: transaction.updatedAt,
         bankId: transaction.bank.id,
         categoryId: transaction.category.id
       },
@@ -57,7 +55,6 @@ export class PrismaTransactionRepository implements TransactionRepository {
         description: data.description,
         type: data.type,
         amount: data.amount,
-        date: data.date,
         bankId: data.bank?.id,
         categoryId: data.category?.id,
         updatedAt: new Date()
@@ -100,7 +97,6 @@ export class PrismaTransactionRepository implements TransactionRepository {
       data.amount,
       bank,
       category,
-      new Date(data.date),
       data.id,
       data.createdAt,
       data.updatedAt
